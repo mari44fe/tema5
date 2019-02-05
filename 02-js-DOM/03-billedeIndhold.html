@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        .firkant {
+            height: 100px;
+            width: 100px;
+            line-height: 100px;
+            text-align: center;
+
+            background: #0ca50c;
+        }
+
+        .cirkel {
+            height: 100px;
+            width: 100px;
+            line-height: 100px;
+            border-radius: 50%;
+            text-align: center;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="firkant"></div>
+    <div class="cirkel"></div>
+
+
+
+    <script>
+        //let firkant = document.querySelector(".firkant");
+        //let cirkel = document.querySelector(".cirkel");
+
+        //firkant.innerHTML = '<img src="http://helf-kea.dk/test/frog.png" alt="frø">';
+        // cirkel.innerHTML = '<img src="http://helf-kea.dk/test/gris.png" alt="gris">';
+
+        //best practise, lav i en variable
+
+        let firkantURL = `http://helf-kea.dk/test/frog.png`
+        let cirkelURL = `http://helf-kea.dk/test/gris.png`
+
+        document.querySelector(".firkant").innerHTML = `<img src = ${firkantURL} alt=frø>`;
+
+        document.querySelector(".cirkel").innerHTML = `<img src = ${cirkelURL} alt=frø>`;
+    </script>
+</body>
+
+</html>
