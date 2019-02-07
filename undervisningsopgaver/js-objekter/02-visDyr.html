@@ -11,13 +11,15 @@
 <body>
 
 
-    <div id="dyr">
-        <h3></h3>
-        <p></p>
+    <div>
         <p></p>
         <img src="" alt="">
     </div>
+
     <script>
+        document.addEventListener("DOMContentLoaded", start);
+
+        const div = document.querySelector("div");
         const dyr = {
             "navn": "Gris",
             "type": "pattedyr",
@@ -25,8 +27,15 @@
             "billede": "http://helf-kea.dk/test/gris.png"
         }
 
-        console.log(dyr);
-        console.log(`Dyr: ${dyr.navn} type: ${dyr.type} levested: ${dyr.levested}`);
+        function start() {
+            div.querySelector("p").textContent = (`Dyr: ${dyr.navn} type: ${dyr.type} levested: ${dyr.levested}`);
+
+            div.querySelector("img").src = dyr.billede;
+
+
+            console.log(dyr);
+            console.log(`Dyr: ${dyr.navn} type: ${dyr.type} levested: ${dyr.levested}`);
+        }
     </script>
 </body>
 

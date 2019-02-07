@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+    <!-- Gem 02-visDyr.html i en ny kopi, 03-visIelement.html.
+Udbyg det tomme div tag, så det indeholder:
+En h2-overskrift til dyrets navn
+Et tomt img-tag til billedet
+Et p-tag til typen
+Et p-tag til levestedet
+Lav om på scriptet, så det indsætter de forskellige
+værdier i de rigtige tags -->
+
+
+    <div>
+        <h2></h2>
+        <img src="" alt="">
+        <p>Type:</p>
+        <p>Levested:</p>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+
+        const div = document.querySelector("div");
+        const dyr = {
+            "navn": "Gris",
+            "type": "pattedyr",
+            "levested": "svinefarm",
+            "billede": "http://helf-kea.dk/test/gris.png"
+        }
+
+        function start() {
+            div.querySelector("h2").textContent = dyr.navn;
+            div.querySelector("img").src = dyr.billede;
+            div.querySelector("p").textContent += dyr.type;
+            div.querySelector("p+p").textContent += dyr.levested;
+
+
+            console.log(dyr);
+            console.log(`Dyr: ${dyr.navn} type: ${dyr.type} levested: ${dyr.levested}`);
+        }
+    </script>
+</body>
+
+</html>
