@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="">
+
+    <style>
+        .minedyr {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Gem 02-visDyr.html i en ny kopi, 04-dyrIarray.html. Lav ændringer i scriptet:
+Erklær et array, med fem dyr: gris, frø, ræv, sild og krokodille
+Egenskaber: navn, type, levested og billede
+Billed-url’er:
+http://helf-kea.dk/test/frø.png
+http://helf-kea.dk/test/gris.png
+http://helf-kea.dk/test/fox.png
+http://helf-kea.dk/test/sild.jpg
+http://helf-kea.dk/test/kroko.jpg
+Lav et script, som viser arrayet i Console.
+Kig i Console, og fold arrayet ud.
+ -->
+
+
+    <div id="liste" class="minedyr"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+
+        //viser at her er et tomt array
+        let alleDyr = [];
+
+
+        //hent jason fil i asynkron function (man laver en ny funktion)
+        async function start() {
+            //henter data filen
+            const myJson = await fetch("dyr.json");
+            //den hentede data tolkes som json
+            alleDyr = await myJson.json();
+            //kald funktionen der vider data i DOM
+            visDyr();
+        }
+
+
+        function visDyr() {
+            let destination = document.querySelector("#liste");
+
+            alleDyr.forEach(dyr => {
+                destination.innerHTML += `<div class="minedyr"><h3>${dyr.navn}</h3> <p>${dyr.type}</p> <img src=${dyr.billede}><p> fra ${dyr.levested}</p> </div>`;
+            })
+        }
+    </script>
+</body>
+
+</html>
