@@ -58,8 +58,9 @@
     </header>
 
 
-
-    <div id="liste"></div>
+    <main>
+        <section id="liste"></section>
+    </main>
 
 
 
@@ -83,7 +84,7 @@
             let destination = document.querySelector("#liste");
             retter.forEach(ret => {
                 destination.innerHTML += `
-                <div class="minret"><h2>${ret.navn}</h2>
+                <article class="minret"><h2>${ret.navn}</h2>
                 <img src=imgs/small/${ret.billede}-sm.jpg alt=${ret.navn}>
                 <p>${ret.kort}</p>
                 <p>Pris: ${ret.pris},-</p>
