@@ -24,11 +24,33 @@
             font-size: 2rem;
         }
 
+        .valgt {
+            background-color: orange;
+        }
+
+        button {
+            height: 4rem;
+            width: 7rem;
+            border-radius: 40px;
+        }
+
+        h1 {
+            text-decoration: underline;
+            text-transform: uppercase;
+            text-align: center;
+
+        }
+
         #liste {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
             margin: 1rem;
             grid-gap: 2rem;
+        }
+
+        footer {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
         }
 
         @media only screen and (min-width:600px) {
@@ -42,7 +64,6 @@
                 grid-template-columns: repeat(3, 1fr);
             }
         }
-
     </style>
 </head>
 
@@ -50,49 +71,96 @@
 
     <header>
         <h1>Menu</h1>
-        <nav>
-            <button class="forretter">forretter</button>
-            <button class="hovedretter">hovedretter</button>
-            <button class="desserter">desserter</button>
-            <button class="drikkevarer">drikkevarer</button>
+        <nav class="menu">
+            <button class="filter valgt" data-ret="alle">Alle</button>
+            <button class="filter" data-ret="forretter">Forretter</button>
+            <button class="filter" data-ret="hovedretter">Hovedretter</button>
+            <button class="filter" data-ret="desserter">Desserter</button>
+            <button class="filter" data-ret="drikkevarer">Drikkevarer</button>
+            <button class="pris" data-pris="pris">Sorter efter pris</button>
         </nav>
     </header>
 
 
     <main>
-        <section id="liste"></section>
+        <section id="liste" class="retter"></section>
     </main>
 
 
 
-    <footer>Adresse: Grønnegade 97 1234 København K · Åbningstider: Mandag-fredag 10:30-22:00 Lørdag 12:00-23:00</footer>
+    <footer>
+        <div>Adresse: <br> Grønnegade 97 <br> 1234 København K</div>
+        <div>Åbningstider: <br> Mandag-fredag 10:30-22:00 <br>Lørdag 12:00-23:00</div>
+    </footer>
 
 
     <script>
         let retter = [];
+        let filter = "alle";
+
         document.addEventListener("DOMContentLoaded", start);
 
         async function start() {
             const myJson = await fetch("https://mandalskeawebspace.dk/claude_php/clean_up_spreadsheet.php?id=1jxxxFoWBuMJ1qhQ9BQIAyKHmP38XtAF9_sQr0xo5JLo");
             retter = await myJson.json();
 
+            retter.sort((a, b) => {
+                return a.navn.localeCompare(b.navn);
+            });
+
             console.log(retter);
 
             visRetter();
         }
 
+
+
         function visRetter() {
             let destination = document.querySelector("#liste");
+
+
+            destination.innerHTML = "";
             retter.forEach(ret => {
-                destination.innerHTML += `
+                if (filter == "alle" || filter == ret.kategori) {
+                    destination.innerHTML += `
                 <article class="minret"><h2>${ret.navn}</h2>
                 <img src=imgs/small/${ret.billede}-sm.jpg alt=${ret.navn}>
                 <p>${ret.kort}</p>
                 <p>Pris: ${ret.pris},-</p>
       `;
-            })
-        }
+                }
+            });
 
+            document.querySelectorAll(".filter").forEach(knap => {
+                knap.addEventListener("click", filt);
+            });
+
+            function filt() {
+                document.querySelectorAll(".filter").forEach(knap => {
+                    knap.classList.remove("valgt");
+                });
+                this.classList.add("valgt");
+                document.querySelector("h1").textContent = this.textContent;
+
+                filter = this.getAttribute("data-ret");
+                visRetter();
+            }
+
+            document.querySelectorAll(".pris").forEach(knap => {
+                knap.addEventListener("click", pris);
+            });
+
+            function pris() {
+                retter.sort((a, b) => {
+                    return (a.pris - b.pris);
+
+                });
+
+                visRetter();
+            }
+
+        }
+        start();
     </script>
 
 </body>
