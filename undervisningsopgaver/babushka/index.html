@@ -25,7 +25,7 @@
         }
 
         .valgt {
-            background-color: orange;
+            background-color: darkorange;
         }
 
         button {
@@ -136,6 +136,7 @@
             });
 
             function filt() {
+                document.querySelector(".pris").classList.remove("valgt");
                 document.querySelectorAll(".filter").forEach(knap => {
                     knap.classList.remove("valgt");
                 });
@@ -151,6 +152,9 @@
             });
 
             function pris() {
+                document.querySelector(".filter").classList.remove("valgt");
+                document.querySelector(".pris").classList.add("valgt");
+
                 retter.sort((a, b) => {
                     return (a.pris - b.pris);
 
