@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="">
+
+    <style>
+        #liste {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            border: none;
+
+        }
+
+        img {
+            max-width: 15rem;
+        }
+
+        .personer {
+            border: 1px solid black;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        @media only screen and (min-width: 500px) {
+            #liste {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media only screen and (min-width: 768px) {
+            #liste {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .menu {
+            text-align: center;
+
+        }
+
+        .menu .valgt {
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="menu">
+        <button class="filter" data-hold="alle">Alle</button>
+        <button class="filter valgt" data-hold="a">Hold A</button>
+        <button class="filter" data-hold="b">Hold B</button>
+    </div>
+
+    <div id="liste" class="personer"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+
+        //viser at her er et tomt array
+        let personer = [];
+        let filter = "a";
+
+
+        //hent jason fil i asynkron function (man laver en ny funktion)
+        async function start() {
+            //henter data filen
+            const myJson = await fetch("https://mandalskeawebspace.dk/claude_php/clean_up_spreadsheet.php?id=1OLlD_GRoz71piHvnW306omRAyHS7vtLOILQt-K0YF_c");
+            //den hentede data tolkes som json
+            personer = await myJson.json();
+            //kald funktionen der vider data i DOM
+            visPersoner();
+        }
+
+
+        function visPersoner() {
+            let destination = document.querySelector("#liste");
+
+
+            personer.forEach(person => {
+                if (person.hold == filter) {
+                    destination.innerHTML += `
+                <div class="personer">
+                <h2>${person.navn}</h2>
+                <img src=${person.billede}>
+                <a href="https://github.com/${person.github}">https://github.com/${person.github}</a>
+                <p>${person.email}</p>
+                <p>Alder: ${person.alder}</p>
+        </div>
+      `;
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
