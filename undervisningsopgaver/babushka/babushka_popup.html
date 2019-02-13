@@ -8,25 +8,39 @@
 
     <style>
         body {
+            box-sizing: border-box;
             background-color: #eaeaea;
+            margin: 0;
+            padding: 0;
         }
+
+        footer {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            padding: 1.5rem;
+            text-align: center;
+            height: 5.5rem;
+            background-color: grey;
+        }
+
 
         img {
             width: 100%;
         }
 
-        .minret {
-            padding: 1rem;
-            background-color: white;
+
+
+        h1 {
+            text-decoration: underline;
+            text-transform: uppercase;
+
         }
 
         h3 {
             font-size: 2rem;
         }
 
-        .valgt {
-            background-color: darkorange;
-        }
+        /*Navigation*/
 
         button {
             height: 4rem;
@@ -34,12 +48,15 @@
             border-radius: 40px;
         }
 
-        h1 {
-            text-decoration: underline;
-            text-transform: uppercase;
+        nav {
             text-align: center;
-
         }
+
+        .valgt {
+            background-color: darkorange;
+        }
+
+        /*Retterne individuelt*/
 
         #liste {
             display: grid;
@@ -48,10 +65,44 @@
             grid-gap: 2rem;
         }
 
-        footer {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
+        .minret {
+            padding: 1rem;
+            background-color: white;
         }
+
+
+        /*pop up vindue*/
+
+        #popup {
+            top: 0;
+            width: 100vw;
+            height: 100vw;
+            position: fixed;
+            background-color: hsla(0, 0%, 50%, 0.67);
+            display: none;
+            overflow: scroll;
+        }
+
+        #indhold {
+            min-height: 50vh;
+            background-color: white;
+            width: 70vw;
+            margin: 4rem auto;
+        }
+
+        #luk {
+            position: fixed;
+            right: 2rem;
+        }
+
+        #luk button {
+            font-size: 2rem;
+            padding: 1rem 2rem;
+            height: 4.3rem;
+            width: 6.4rem;
+            border-radius: 20px;
+        }
+
 
         @media only screen and (min-width:600px) {
             #liste {
@@ -68,6 +119,13 @@
 </head>
 
 <body>
+
+    <div id="popup">
+        <div id="luk">
+            <button> LUK </button>
+        </div>
+        <div id="indhold"></div>
+    </div>
 
     <header>
         <h1>Menu</h1>
@@ -108,8 +166,6 @@
                 return a.navn.localeCompare(b.navn);
             });
 
-            console.log(retter);
-
             visRetter();
         }
 
@@ -122,12 +178,17 @@
             destination.innerHTML = "";
             retter.forEach(ret => {
                 if (filter == "alle" || filter == ret.kategori) {
-                    destination.innerHTML += `
+                    let template = `
                 <article class="minret"><h2>${ret.navn}</h2>
                 <img src=imgs/small/${ret.billede}-sm.jpg alt=${ret.navn}>
                 <p>${ret.kort}</p>
                 <p>Pris: ${ret.pris},-</p>
-      `;
+    </articlet>`;
+                    destination.insertAdjacentHTML("beforeend", template);
+
+                    destination.lastElementChild.addEventListener("click", () => {
+                        visSingle(ret);
+                    });
                 }
             });
 
@@ -165,6 +226,23 @@
 
         }
         start();
+
+        function visSingle(ret) {
+            document.querySelector("#indhold").innerHTML = `
+                    <article class="minret">
+                        <h2>${ret.navn}</h2>
+                        <img src=imgs/small/${ret.billede}-sm.jpg alt=${ret.navn}>
+                        <p>${ret.lang}</p>
+                        <p>Oprindelse: ${ret.oprindelse}</p>
+                        <p>Pris: ${ret.pris},-</p>
+                    </article>`;
+            document.querySelector("#popup").style.display = "block";
+            document.querySelector("#popup #luk").addEventListener("click", close);
+        }
+
+        function close() {
+            document.querySelector("#popup").style.display = "none";
+        }
     </script>
 
 </body>
