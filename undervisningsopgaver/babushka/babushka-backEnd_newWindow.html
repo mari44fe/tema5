@@ -1,111 +1,130 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="da">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <link rel="stylesheet" href="">
+    <title>BABUSHKA</title>
 
     <style>
-        body * {
-            box-sizing: border-box;
-        }
-
         body {
+            box-sizing: border-box;
+            background-color: #eaeaea;
             margin: 0;
             padding: 0;
         }
 
-        img {
-            max-width: 12rem;
+        footer {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            padding: 1.5rem;
+            text-align: center;
+            height: 5.5rem;
+            background-color: grey;
         }
+
+
+        img {
+            width: 100%;
+        }
+
+
+
+        h1 {
+            text-decoration: underline;
+            text-transform: uppercase;
+
+        }
+
+        h3 {
+            font-size: 2rem;
+        }
+
+        /*Navigation*/
+
+        button {
+            height: 4rem;
+            width: 7rem;
+            border-radius: 40px;
+        }
+
+        nav {
+            text-align: center;
+        }
+
+        .valgt {
+            background-color: darkorange;
+        }
+
+        /*Retterne individuelt*/
 
         #liste {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
-            grid-gap: 1vw;
-            border: none;
+            margin: 1rem;
+            grid-gap: 2rem;
         }
 
         .minret {
-            height: 30rem;
-            padding: 2rem;
+            padding: 1rem;
+            background-color: white;
         }
 
-        main {
-            background-color: rgba(226, 176, 145, 0.64);
-            height: 45rem;
-        }
+
+        /*nyt vindue*/
 
         #indhold {
             min-height: 50vh;
             background-color: white;
             width: 70vw;
-            margin: 3rem auto;
+            margin: 4rem auto;
         }
 
-        #tilbage {}
 
         #tilbage button {
-            font-size: 2rem;
-            padding: 1rem 2rem;
+            font-size: 1rem;
+
+            height: 4.3rem;
+            width: 6.4rem;
+            border-radius: 20px;
         }
 
-        @media only screen and (min-width: 650px) {
+
+        @media only screen and (min-width:600px) {
             #liste {
                 grid-template-columns: repeat(2, 1fr);
             }
-
-            img {
-                max-width: 80rem;
-            }
-
-            .minret {
-                height: 40rem;
-                padding: 2rem;
-            }
-
-            main {
-                height: 65rem;
-            }
         }
 
-        @media only screen and (min-width: 1140px) {
+        @media only screen and (min-width:768px) {
             #liste {
                 grid-template-columns: repeat(3, 1fr);
             }
-
-            img {
-                height: 30rem;
-            }
-
-            .minret {
-                height: 45rem;
-                padding: 2rem;
-            }
-
-            main {
-                height: 63rem;
-            }
         }
-
     </style>
 </head>
 
 <body>
 
+
     <main id="single">
         <div id="tilbage">
-            <button>
-                << </button> </div> <section id="indhold">
-                    </section>
+            <button> TILBAGE </button>
+        </div>
 
+        <section id="liste" class="retter"></section>
+        <section id="indhold"></section>
     </main>
 
 
+
+    <footer>
+        <div>Adresse: <br> Grønnegade 97 <br> 1234 København K</div>
+        <div>Åbningstider: <br> Mandag-fredag 10:30-22:00 <br>Lørdag 12:00-23:00</div>
+    </footer>
+
+
     <script>
-        //HER GØR VI DET MULIGT AT INFORMATIONERNE FRA DEN ANDEN SIDE KAN BLIVE OVERFØRT/MODTAGET PÅ DENNE SIDE.
         let urlParams = new URLSearchParams(window.location.search)
         let id = urlParams.get("id");
         console.log(id);
@@ -121,8 +140,8 @@
         }
 
         function visRetter() {
-            let dest = document.querySelector("#indhold");
-            dest.innerHTML = "";
+            let destination = document.querySelector("#indhold");
+            destination.innerHTML = "";
             retter.forEach(ret => {
                 //når id svarer til det der er medsendt
                 if (id == ret.id) {
@@ -133,14 +152,17 @@
                             <p>${ret.lang}</p>
                             <p>Pris: ${ret.pris},-</p>
                     </article>`;
-                    dest.insertAdjacentHTML("beforeend", template);
+                    destination.insertAdjacentHTML("beforeend", template);
                 }
             });
-            document.querySelectorAll(".filter").forEach(elm => {
-                elm.addEventListener("click", filtrering);
+            document.querySelectorAll(".filter").forEach(knap => {
+                knap.addEventListener("click", filt);
             });
+
             start();
-            //dette indhold skal bruges
+
+
+
             function visSingle(ret) {
                 document.querySelector("#indhold").innerHTML = `
                     <article class="minret">
@@ -153,11 +175,11 @@
                 document.querySelector("#popup").style.display = "block";
             }
             document.querySelector("#tilbage button").addEventListener("click", () => {
-                location.href = "babushka-singleNytVindue.html";
+                location.href = "babushka_newWindow.html";
             })
         }
-
     </script>
+
 </body>
 
 </html>

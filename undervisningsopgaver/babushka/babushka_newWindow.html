@@ -71,38 +71,6 @@
         }
 
 
-        /*pop up vindue*/
-
-        #popup {
-            top: 0;
-            width: 100vw;
-            height: 100vw;
-            position: fixed;
-            background-color: hsla(0, 0%, 50%, 0.67);
-            display: none;
-            overflow: scroll;
-        }
-
-        #indhold {
-            min-height: 50vh;
-            background-color: white;
-            width: 70vw;
-            margin: 4rem auto;
-        }
-
-        #luk {
-            position: fixed;
-            right: 2rem;
-        }
-
-        #luk button {
-            font-size: 1.5rem;
-            padding: 1rem 2rem;
-            height: 4.3rem;
-            width: 6.4rem;
-            border-radius: 20px;
-        }
-
 
         @media only screen and (min-width:600px) {
             #liste {
@@ -119,13 +87,6 @@
 </head>
 
 <body>
-
-    <div id="popup">
-        <div id="luk">
-            <button>LUK</button>
-        </div>
-        <div id="indhold"></div>
-    </div>
 
     <header>
         <h1>Menu</h1>
@@ -187,7 +148,7 @@
                     destination.insertAdjacentHTML("beforeend", template);
 
                     destination.lastElementChild.addEventListener("click", () => {
-                        visSingle(ret);
+                        location.href = "babushka-backEnd_newWindow.html?id=" + ret.id;
                     });
                 }
             });
@@ -226,23 +187,6 @@
 
         }
         start();
-
-        function visSingle(ret) {
-            document.querySelector("#indhold").innerHTML = `
-                    <article class="minret">
-                        <h2>${ret.navn}</h2>
-                        <img src=imgs/small/${ret.billede}-sm.jpg alt=${ret.navn}>
-                        <p>${ret.lang}</p>
-                        <p>Oprindelse: ${ret.oprindelse}</p>
-                        <p>Pris: ${ret.pris},-</p>
-                    </article>`;
-            document.querySelector("#popup").style.display = "block";
-            document.querySelector("#popup #luk").addEventListener("click", close);
-        }
-
-        function close() {
-            document.querySelector("#popup").style.display = "none";
-        }
     </script>
 
 </body>
