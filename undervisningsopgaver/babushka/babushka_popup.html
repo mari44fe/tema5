@@ -20,7 +20,9 @@
             padding: 1.5rem;
             text-align: center;
             height: 5.5rem;
-            background-color: grey;
+            background-color: black;
+            color: white;
+
         }
 
 
@@ -31,9 +33,26 @@
 
 
         h1 {
+            font-size: 3rem;
             text-decoration: underline;
-            text-transform: uppercase;
+            margin-left: 1rem;
 
+        }
+
+        .header h1 {
+            font-size: 2.6rem;
+            text-decoration: none;
+            text-align: center;
+            color: darkorange;
+            padding-top: 2rem;
+            margin: 0 auto;
+            margin-top: 2rem;
+        }
+
+        .header {
+            background-color: black;
+            height: 40vw;
+            margin-top: -2rem;
         }
 
         h3 {
@@ -43,13 +62,18 @@
         /*Navigation*/
 
         button {
+            font-size: 0.8rem;
             height: 4rem;
             width: 7rem;
             border-radius: 40px;
+            margin: 0.2rem;
+            background-color: #eaeaea;
         }
 
         nav {
+            background-color: black;
             text-align: center;
+            padding-bottom: 0.5rem;
         }
 
         .valgt {
@@ -92,15 +116,18 @@
 
         #luk {
             position: fixed;
-            right: 2rem;
+            right: 4rem;
+            top: 4.3rem;
+
         }
 
         #luk button {
-            font-size: 1.5rem;
-            padding: 1rem 2rem;
-            height: 4.3rem;
-            width: 6.4rem;
-            border-radius: 20px;
+            font-size: 1rem;
+            padding: 0.5rem 1.rem;
+            height: 2.4rem;
+            width: 3.5rem;
+            border-radius: 40px;
+            background: darkorange;
         }
 
 
@@ -108,11 +135,38 @@
             #liste {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            #luk {
+                right: 6rem;
+            }
+
+            .header {
+                height: 20vw;
+            }
+
+            .header h1 {
+                font-size: 3rem;
+            }
+
+
+
         }
 
         @media only screen and (min-width:768px) {
             #liste {
                 grid-template-columns: repeat(3, 1fr);
+            }
+
+            #luk {
+                right: 11.5rem;
+            }
+
+            .header {
+                height: 10vw;
+            }
+
+            footer {
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -128,7 +182,9 @@
     </div>
 
     <header>
-        <h1>Menu</h1>
+        <div class="header">
+            <h1>★Bistro Babushka★</h1>
+        </div>
         <nav class="menu">
             <button class="filter valgt" data-ret="alle">Alle</button>
             <button class="filter" data-ret="forretter">Forretter</button>
@@ -137,6 +193,7 @@
             <button class="filter" data-ret="drikkevarer">Drikkevarer</button>
             <button class="pris" data-pris="pris">Sorter efter pris</button>
         </nav>
+        <h1>Menu</h1>
     </header>
 
 
